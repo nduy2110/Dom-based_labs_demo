@@ -21,47 +21,44 @@
           </div>
           <div class="result">
             <div class="priority high"><span>High priority</span></div>
+            <% tasks.filter(task => task.type == 1).forEach(task => { %>
             <div class="task high">
               <div class="desc">
-                <div class="title">Viết Report ABC</div>
-                <div>Viết report cho challenge A</div>
+                <div class="title"><%= task.title %></div>
+                <div><%= task.description %></div>
               </div>
               <div class="time">
-                <div class="date">Jun 1, 2012</div>
-                <div> 1 day</div>
+                <div class="date"><%= task.assignedDate %></div>
+                <div> <%= task.daysLeft %> day</div>
               </div>
             </div>
+            <% }) %>
             <div class="priority medium"><span>Medium priority</span></div>
-            <div class="task medium">
-              <div class="desc">
-                <div class="title">Làm labs cho lỗi X</div>
-                <div>Lỗi này phức tạp nên làm 3 level thôi</div>
+            <% tasks.filter(task => task.type == 2).forEach(task => { %>
+              <div class="task medium">
+                <div class="desc">
+                  <div class="title"><%= task.title %></div>
+                  <div><%= task.description %></div>
+                </div>
+                <div class="time">
+                  <div class="date"><%= task.assignedDate %></div>
+                  <div> <%= task.daysLeft %> day</div>
+                </div>
               </div>
-              <div class="time">
-                <div class="date">Jun 1, 2012</div>
-                <div> 1 day</div>
-              </div>
-            </div>
-            <div class="task medium last">
-              <div class="desc">
-                <div class="title">Deploy labs lên server</div>
-                <div>Deploy nhanh để đi ăn cơm</div>
-              </div>
-              <div class="time">
-                <div class="date">Jun 1, 2012</div>
-                <div> 1 day</div>
-              </div>
-            </div>
+              <% }) %>
             <div class="priority low"><span>Low priority</span></div>
-            <div class="task low">
-              <div class="desc">
-                <div class="title">Research về lỗi Z</div>
-                <div>Lỗi này quằn nên cho thời gian dài xíu</div>
+            <% tasks.filter(task => task.type == 3).forEach(task => { %>
+              <div class="task low">
+                <div class="desc">
+                  <div class="title"><%= task.title %></div>
+                  <div><%= task.description %></div>
+                </div>
+                <div class="time">
+                  <div class="date"><%= task.assignedDate %></div>
+                  <div> <%= task.daysLeft %> day</div>
+                </div>
               </div>
-              <div class="time">
-                <div class="date">Jun 1, 2012</div>
-                <div> 1 day</div>
-              </div>
+              <% }) %>
             </div>
           </div>
           <div class="clearfix"></div>		
