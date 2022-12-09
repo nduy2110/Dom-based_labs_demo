@@ -80,7 +80,7 @@
 
       if (searchResults.length > 0) {
         searchMsg.classList.remove("hidden");
-        searchMsg.innerHTML = `Search results for ${keyword}:`;
+        searchMsg.innerHTML = `Search results for ${decodeURIComponent(keyword)}:`;
         resultElem.innerHTML = "";
 
         searchResults.forEach(result => resultElem.innerHTML += `
@@ -97,7 +97,7 @@
         `)
       } else {
         searchMsg.classList.remove("hidden");
-        searchMsg.innerHTML = `No results for ${keyword}`;
+        searchMsg.innerHTML = `No results for ${decodeURIComponent(keyword)}`;
       }
     };
 
