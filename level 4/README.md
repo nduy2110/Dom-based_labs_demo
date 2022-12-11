@@ -1,0 +1,1 @@
+## DOM Based Level 4 - DOM clobbering easy
