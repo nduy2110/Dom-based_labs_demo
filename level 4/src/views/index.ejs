@@ -35,7 +35,7 @@
 <script>
     const result = document.getElementById("searchResult")
 
-    function loadDefautlAvatar() {
+    function loadConfig() {
         var config = window.fileConfig || {href: '../config/config.js'};
         var s = document.getElementById('config')
        
@@ -55,7 +55,7 @@
         
         result.classList.remove("hidden")
         result.innerHTML = `Search results for ${search}:`
-        loadDefautlAvatar()
+        loadConfig()
     }
 
 </script>
