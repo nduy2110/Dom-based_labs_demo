@@ -1,1 +1,0 @@
-## DOM Based Level 5 - DOM clobbering easy part 2

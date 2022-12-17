@@ -20,43 +20,44 @@
     <div>
         <h3>This is note title</h3>
         <p>go to school</p>
+        <form action="/api/note">
+            <input type="hidden" name="id" value="1">
+            <button type="submit" value="Submit">Detail</button>
+        </form>
     </div>
     <hr>
     <div>
         <h3>This is note title</h3>
         <p>try harder</p>
+        <form action="/api/note">
+            <input type="hidden" name="id" value="2">
+            <button type="submit" value="Submit">Detail</button>
+        </form>
     </div>
     <hr>
     <div>
         <h3>This is note title</h3>
         <p>sleep</p>
+        <form action="/api/note">
+            <input type="hidden" name="id" value="3">
+            <button type="submit" value="Submit">Detail</button>
+        </form>
     </div>
+
 </body>
 <script>
     const result = document.getElementById("searchResult")
-
-    function loadConfig() {
-        var config = window.fileConfig || {href: '../config/config.js'};
-        var s = document.getElementById('config')
-       
-        if(s) {
-            s.setAttribute('src', config.href)
-        } else {
-            s = document.createElement('script');
-            s.setAttribute('id', 'config')
-            s.setAttribute('src', config.href);
-            document.body.appendChild(s);
-        }
-    }
-
+    
     function search() {
+        //santitize search value
         let search = document.getElementById("searchValue").value;
         search = DOMPurify.sanitize(search);
         
         result.classList.remove("hidden")
         result.innerHTML = `Search results for ${search}:`
-        loadConfig()
+
     }
+
 
 </script>
 </html>

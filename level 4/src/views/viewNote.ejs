@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <h3><%= description %></h3>
+
+    <button value="submit" type="Submit" onclick="nav('prev')">Prev note</button>
+
+    <button value="submit" type="Submit" onclick="nav('next')">Next note</button>
+
+    <button value="submit" type="Submit" onclick="nav('home')">Home</button>
+
+
+</body>
+<script>
+    let url = /url=.+/.exec(location)
+
+    function nav(option) {
+        const id = location.search.slice(-1,)
+        
+        switch(option) {
+            case 'prev':
+                location.href = `/api/note?id=${Number(id)-1}`
+                break
+                case 'next':
+                location.href =`/api/note?id=${Number(id)+1}` 
+                break
+                case 'home':
+                    if(url) {
+                        location.href = url[0].slice(4,)
+                    } else {
+                        location.href = '/'
+                    }
+            default:
+                console.log("nah")
+                break
+        }
+        
+    }   
+</script>
+</html>

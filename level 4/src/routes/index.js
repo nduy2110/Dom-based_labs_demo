@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('../views/index.ejs');
 });
 
+router.get('/edit', function(req, res, next) {
+  res.render('../views/edit.ejs');
+});
+
 module.exports = router;
