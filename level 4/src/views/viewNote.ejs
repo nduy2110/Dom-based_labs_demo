@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.1/purify.js"></script>
 </head>
 <body>
-    <h1><%= title %></h1>
-    <h3><%= description %></h3>
-
-    <button value="submit" type="Submit" onclick="nav('prev')">Prev note</button>
-
-    <button value="submit" type="Submit" onclick="nav('next')">Next note</button>
-
-    <button value="submit" type="Submit" onclick="nav('home')">Home</button>
+    <div class="container">
+        <div class="detail-box">
+            <div class="desc">
+                <h1 ><%= title %></h1>
+                <h3><%= description %></h3>
+            
+            </div>
+            <div class="time">
+                <h4>Created at: <%= assignedDate %></h4>
+                <h4>Day left: <%= daysLeft %></h4>
+            </div>
+            <div class="nav">
+                
+                <button value="submit" type="Submit" class="detailButton" onclick="nav('prev')">Prev note</button>
+                
+                <button value="submit" type="Submit" class="detailButton" onclick="nav('next')">Next note</button>
+                
+                <button value="submit" type="Submit" class="detailButton" onclick="nav('home')">Home</button>
+            </div>
+        </div>
+    </div>
 
 
 </body>

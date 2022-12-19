@@ -1,45 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.1/purify.js"></script>
-    <title>Document</title>
 </head>
 <body>
-    Search for note
+        <div class="container page-todo">
+            <div class="col-sm-7 tasks" id="task-box">
+              <div class="task-list">
+                <h1 id="heading">Tasks</h1>
+                <div class="wrap">
+                  <div class="search">
+                     <input type="text" class="searchTerm" id="searchTerm" placeholder="What are you looking for?">
+                     <button type="submit" class="searchButton" onclick="search()">
+                       <i class="fa fa-search"></i>
+                    </button>
+                  </div> 
+                  <p id="searchResult" class="hidden"></p>
+                </div>
+                <div class="result">
+                  <div class="priority high"><span>High priority</span></div>
+                  <% tasks.filter(task => task.type == 1).forEach(task => { %>
+                  <div class="task high">
+                    <div class="desc">
+                      <div class="title"><%= task.title %></div>
+                      <div><%= task.description %></div>
+                    </div>
+                    <div class="time">
+                      <div class="date"><%= task.assignedDate %></div>
+                      <div> <%= task.daysLeft %> day</div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <div class="priority medium"><span>Medium priority</span></div>
+                  <% tasks.filter(task => task.type == 2).forEach(task => { %>
+                    <div class="task medium">
+                      <div class="desc">
+                        <div class="title"><%= task.title %></div>
+                        <div><%= task.description %></div>
+                      </div>
+                      <div class="time">
+                        <div class="date"><%= task.assignedDate %></div>
+                        <div> <%= task.daysLeft %> day</div>
+                      </div>
+                    </div>
+                    <% }) %>
+                  <div class="priority low"><span>Low priority</span></div>
+                  <% tasks.filter(task => task.type == 3).forEach(task => { %>
+                    <div class="task low">
+                      <div class="desc">
+                        <div class="title"><%= task.title %></div>
+                        <div><%= task.description %></div>
+                      </div>
+                      <div class="time">
+                        <div class="date"><%= task.assignedDate %></div>
+                        <div> <%= task.daysLeft %> day</div>
+                      </div>
+                    </div>
+                    <% }) %>
+                  </div>
+                </div>
+                <div class="clearfix"></div>		
+                <button type="submit" value="Submit" class="historyButtion" onclick="searchHistory()">Search History</button>
+                
+                <div id="history-box">
+                    <h4></h4>
+                    <ul class="history-box-list" >
+                        
+                    </ul>
+                </div>
+            </div>		
+            </div>
+        </div>
 
-    <input type="text" id="searchValue">
-    <button type="submit" value="Submit" onclick="search()">Submit</button>
-
-    <p class="hidden" id="searchResult"><p>
-
-    <h1>Notes</h1>
-
-    <div>
-        <h3>This is note title</h3>
-        <p>go to school</p>
-    </div>
-    <hr>
-    <div>
-        <h3>This is note title</h3>
-        <p>try harder</p>
-    </div>
-    <hr>
-    <div>
-        <h3>This is note title</h3>
-        <p>sleep</p>
-    </div>
-
-    <button type="submit" value="Submit" onclick="searchHistory()">Search History</button>
 </body>
 <script>
     const result = document.getElementById("searchResult")
-    
+    const historyBox = document.getElementById("history-box")
+    const historyHeading = historyBox.getElementsByTagName('h4')[0]
+    const historyList = historyBox.getElementsByTagName('ul')[0]
+
     function search() {
         //santitize search value
-        let search = document.getElementById("searchValue").value;
+        let search = document.getElementById("searchTerm").value;
         search = DOMPurify.sanitize(search);
         
         result.classList.remove("hidden")
@@ -63,30 +111,26 @@
     function searchHistory() {
         //Get history data
         let historyData = localStorage.getItem("data")
-        const text = document.createElement("h4")
         //Render
         if(historyData) {   
-            text.innerText = "Your searched:"
-            document.body.appendChild(text)
-
+            historyHeading.innerText = "Your searched:"
+            
             historyData = JSON.parse(atob(historyData))
-            renderer.render.apply(historyData)
+            renderer.render.apply(historyData, [historyList])
         } else {
-            text.innerText = "Not found"
-            document.body.appendChild(text)
+            historyHeading.innerText = "Not found"
         }
     }
 
     const renderer = {
-        render: function() {
+        render: function(element) {
+            let html = ''
             for (a of this.data) {
-                const html = document.createElement("ul")
-                html.innerHTML = `<li>${a}</li>`
-                document.body.appendChild(html)
+                html += `<li>${a}</li>`
             }
+            element.innerHTML = html
         }
     }
-
 
 </script>
 </html>

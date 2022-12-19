@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.1/purify.js"></script>
-    <title>Document</title>
 </head>
 <body>
-    Search for note
-
-    <input type="text" id="searchValue">
-    <button type="submit" value="Submit" onclick="search()">Submit</button>
-
-    <p class="hidden" id="searchResult"><p>
-
-    <h1>Notes</h1>
-
-    <div>
-        <h3>This is note title</h3>
-        <p>go to school</p>
-        <form action="/api/note">
-            <input type="hidden" name="id" value="1">
-            <button type="submit" value="Submit">Detail</button>
-        </form>
-    </div>
-    <hr>
-    <div>
-        <h3>This is note title</h3>
-        <p>try harder</p>
-        <form action="/api/note">
-            <input type="hidden" name="id" value="2">
-            <button type="submit" value="Submit">Detail</button>
-        </form>
-    </div>
-    <hr>
-    <div>
-        <h3>This is note title</h3>
-        <p>sleep</p>
-        <form action="/api/note">
-            <input type="hidden" name="id" value="3">
-            <button type="submit" value="Submit">Detail</button>
-        </form>
-    </div>
+        <div class="container page-todo">
+            <div class="col-sm-7 tasks" id="task-box">
+              <div class="task-list">
+                <h1 id="heading">Tasks</h1>
+                <div class="wrap">
+                  <div class="search">
+                     <input type="text" class="searchTerm" id="searchTerm" placeholder="What are you looking for?">
+                     <button type="submit" class="searchButton" onclick="search()">
+                       <i class="fa fa-search"></i>
+                    </button>
+                  </div> 
+                  <p id="searchResult" class="hidden"></p>
+                </div>
+                <div class="result">
+                  <div class="priority high"><span>High priority</span></div>
+                  <% tasks.filter(task => task.type == 1).forEach(task => { %>
+                  <div class="task high">
+                    <div class="desc">
+                      <div class="title"><%= task.title %></div>
+                      <div><%= task.description %></div>
+                      <form action="/api/note">
+                        <input type="hidden" name="id" value="<%= task.id %>">
+                        <button type="submit" value="Submit" class="detailButton" style="background-color:#f86c6b">Detail</button>
+                      </form>
+                    </div>
+                    <div class="time">
+                      <div class="date"><%= task.assignedDate %></div>
+                      <div> <%= task.daysLeft %> day</div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <div class="priority medium"><span>Medium priority</span></div>
+                  <% tasks.filter(task => task.type == 2).forEach(task => { %>
+                    <div class="task medium">
+                      <div class="desc">
+                        <div class="title"><%= task.title %></div>
+                        <div><%= task.description %></div>
+                        <form action="/api/note">
+                            <input type="hidden" name="id" value="<%= task.id %>">
+                            <button type="submit" value="Submit" class="detailButton" style="background-color:#f8cb00">Detail</button>
+                          </form>
+                      </div>
+                      <div class="time">
+                        <div class="date"><%= task.assignedDate %></div>
+                        <div> <%= task.daysLeft %> day</div>
+                      </div>
+                    </div>
+                    <% }) %>
+                  <div class="priority low"><span>Low priority</span></div>
+                  <% tasks.filter(task => task.type == 3).forEach(task => { %>
+                    <div class="task low">
+                      <div class="desc">
+                        <div class="title"><%= task.title %></div>
+                        <div><%= task.description %></div>
+                        <form action="/api/note">
+                            <input type="hidden" name="id" value="<%= task.id %>">
+                            <button type="submit" value="Submit" class="detailButton" style="background-color:#4dbd74">Detail</button>
+                          </form>
+                      </div>
+                      <div class="time">
+                        <div class="date"><%= task.assignedDate %></div>
+                        <div> <%= task.daysLeft %> day</div>
+                      </div>
+                    </div>
+                    <% }) %>
+                  </div>
+                </div>
+                <div class="clearfix"></div>		
+            </div>		
+            </div>
+        </div>
 
 </body>
 <script>
@@ -50,12 +88,11 @@
     
     function search() {
         //santitize search value
-        let search = document.getElementById("searchValue").value;
+        let search = document.getElementById("searchTerm").value;
         search = DOMPurify.sanitize(search);
-        
+        console.log(search)
         result.classList.remove("hidden")
         result.innerHTML = `Search results for ${search}:`
-
     }
 
 
