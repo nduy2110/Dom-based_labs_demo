@@ -1,0 +1,59 @@
+version: "3.6"
+services:
+  dom-based-xss-workshop-level-1:
+    container_name:  dom-based-xss-workshop-level-1
+    build: ./level1
+    restart: unless-stopped
+    volumes:
+      - ./level1/src:/app
+    ports:
+      - "3001:3001"
+
+  dom-based-xss-workshop-level-2:
+    container_name:  dom-based-xss-workshop-level-2
+    build: ./level2
+    restart: unless-stopped
+    volumes:
+      - ./level2/src:/app
+    ports:
+      - "3002:3002"
+
+  dom-based-xss-workshop-level-3:
+    container_name:  dom-based-xss-workshop-level-3
+    build: ./level3
+    restart: unless-stopped
+    volumes:
+      - ./level3/src:/app
+    ports:
+      - "3003:3003"
+
+  dom-based-xss-workshop-level-4:
+    container_name: dom-based-xss-workshop-level-4
+    build: ./level4
+    restart: unless-stopped
+    volumes:
+      - ./level4/src:/app
+    ports:
+      - "3004:3004"
+
+  dom-based-xss-workshop-level-5:
+    container_name: dom-based-xss-workshop-level-5
+    build: ./level5
+    restart: unless-stopped
+    volumes:
+      - ./level5/src:/app
+    ports:
+      - "3005:3005"
+
+  dom-based-xss-workshop-level-6:
+    container_name:  dom-based-xss-workshop-level-6
+    build: ./level6
+    restart: unless-stopped
+    volumes:
+      - ./level6/src:/app
+    ports:
+      - "3006:3006"
+
+
+volumes:
+  notused:
