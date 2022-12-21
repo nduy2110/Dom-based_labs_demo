@@ -35,29 +35,33 @@
 
 </body>
 <script>
-    let url = /url=.+/.exec(location)
+    const url = new URL(location.href)
+    
+    function redirect() {
+        let hash = location.hash.slice(1,)
+        console.log(hash)
+        if(hash) {
+            window.location.href = hash
+        }
+    }
+    redirect()
 
     function nav(option) {
-        const id = location.search.slice(-1,)
-        
+        const id = url.searchParams.get('id')
         switch(option) {
             case 'prev':
-                location.href = `/api/note?id=${Number(id)-1}`
+                location.href = `#/api/note?id=${Number(id)-1}`
                 break
-                case 'next':
-                location.href =`/api/note?id=${Number(id)+1}` 
+            case 'next':
+                location.href =`#/api/note?id=${Number(id)+1}` 
                 break
-                case 'home':
-                    if(url) {
-                        location.href = url[0].slice(4,)
-                    } else {
-                        location.href = '/'
-                    }
+            case 'home':
+                location.href =`#/` 
             default:
-                console.log("nah")
                 break
-        }
-        
+            }
+        redirect()
     }   
+                    
 </script>
 </html>
