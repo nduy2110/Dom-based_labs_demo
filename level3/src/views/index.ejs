@@ -86,6 +86,7 @@
     const historyList = historyBox.getElementsByTagName('ul')[0]
     const url = new URL(location.href)
 
+    
     //Event hit 'enter'
     searchTerm.addEventListener("keypress", e => {
       if (e.key != "Enter") return;
@@ -97,46 +98,39 @@
     //Check keyword and search
     const keyword = url.searchParams.get("keyword")
     if(keyword) {
-        result.classList.remove("hidden")
-        result.innerHTML = `Search results for ${DOMPurify.sanitize(keyword)}:`
+      result.classList.remove("hidden")
+      result.innerHTML = `Search results for ${DOMPurify.sanitize(keyword)}:`
 
         //Get data from localSorage
         let data = localStorage.getItem("data")
         if(!data) {
-            data = {"data": [], "date": ""}
+          data = {"data": [], "date": ""}
         } else {
-            data = atob(data)
-            data = JSON.parse(data)
+          data = atob(data)
+          data = JSON.parse(data)
         }
-
+        
         // Push data to localStorage
         data["data"].push(keyword)
         data = JSON.stringify(data)
         localStorage.setItem("data", btoa(data))
-    }
-
-    
-    function searchHistory() {
-      //Get history data
-      let historyData = localStorage.getItem("data")
-      //Render
-      if(historyData) {   
-        historyHeading.innerText = "Your searched:"
-        
-        historyData = JSON.parse(atob(historyData))
-        renderer.render.apply(historyData, [historyList])
+      }
+      
+      
+      function searchHistory() {
+        //Get history data
+        let historyData = localStorage.getItem("data")
+        //Render
+        if(historyData) {   
+          historyHeading.innerText = "Your searched:"
+          
+          historyData = JSON.parse(atob(historyData))
+          for (searched of historyData["data"]) {
+            let render = new Function(`const li = document.createElement('li'); li.innerText = '${searched}' ; historyList.append(li)`)
+            render()
+          }
       } else {
         historyHeading.innerText = "Not found"
-      }
-    }
-    
-    const renderer = {
-      render: function(element) {
-        let html = ''
-        for (a of this.data) {
-          html += `<li>${a}</li>`
-        }
-        element.innerHTML = html
       }
     }
     
