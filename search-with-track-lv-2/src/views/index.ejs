@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+  <div class="container page-todo">
+      <div class="col-sm-7 tasks">
+        <div class="task-list">
+          <h1 id="heading">Tasks</h1>
+          <div class="wrap">
+            <div class="search">
+               <input type="text" class="searchTerm" id="searchTerm" placeholder="What are you looking for?">
+               <button type="submit" class="searchButton">
+                 <i class="fa fa-search"></i>
+              </button>
+            </div> 
+            <p id="searchMsg" class="none"></p>
+          </div>
+          <div class="result">
+            <div class="priority high"><span>High priority</span></div>
+            <% tasks.filter(task => task.type == 1).forEach(task => { %>
+            <div class="task high">
+              <div class="desc">
+                <div class="title"><%= task.title %></div>
+                <div><%= task.description %></div>
+              </div>
+              <div class="time">
+                <div class="date"><%= task.assignedDate %></div>
+                <div> <%= task.daysLeft %> day</div>
+              </div>
+            </div>
+            <% }) %>
+            <div class="priority medium"><span>Medium priority</span></div>
+            <% tasks.filter(task => task.type == 2).forEach(task => { %>
+              <div class="task medium">
+                <div class="desc">
+                  <div class="title"><%= task.title %></div>
+                  <div><%= task.description %></div>
+                </div>
+                <div class="time">
+                  <div class="date"><%= task.assignedDate %></div>
+                  <div> <%= task.daysLeft %> day</div>
+                </div>
+              </div>
+              <% }) %>
+            <div class="priority low"><span>Low priority</span></div>
+            <% tasks.filter(task => task.type == 3).forEach(task => { %>
+              <div class="task low">
+                <div class="desc">
+                  <div class="title"><%= task.title %></div>
+                  <div><%= task.description %></div>
+                </div>
+                <div class="time">
+                  <div class="date"><%= task.assignedDate %></div>
+                  <div> <%= task.daysLeft %> day</div>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+          <div class="clearfix"></div>		
+        </div>		
+      </div>
+  </div>
+  <iframe src="http://127.0.0.1:30022/" frameborder="0" style="display: none;" id="statisticFrame"></iframe>
+  <script>
+    const searchMsg = document.getElementById("searchMsg");
+    const searchTerm = document.getElementById("searchTerm");
+    const url = new URL(location.href);
+    const keyword = url.searchParams.get("keyword");
+
+    const trackIframe = document.getElementById("statisticFrame");
+
+    if (keyword) {
+      const resultElem = document.getElementsByClassName("result")[0];
+      fetch("/api/search?keyword=" + keyword)
+        .then(response => response.json())
+        .then(({isEmpty, results}) => {
+          if (!isEmpty) {
+            searchMsg.classList.remove("hidden");
+            searchMsg.innerText = `Search results for ${keyword}:`;
+            resultElem.innerHTML = "";
+
+            results.forEach(result => resultElem.innerHTML += `
+            <div class="task">
+              <div class="desc">
+                <div class="title">${result.title}</div>
+                <div>${result.description}</div>
+              </div>
+              <div class="time">
+                <div class="date">${result.assignedDate}</div>
+                <div> ${result.daysLeft > 1 ? result.daysLeft + "days" : result.daysLeft + "day"}</div>
+              </div>
+            </div>
+            `)
+          } else {
+            searchMsg.classList.remove("hidden");
+            searchMsg.innerText = `No results for ${keyword}`;
+          }
+        });
+
+        // send statistic data
+        const trackIframe = document.getElementById("statisticFrame");
+        setTimeout(() => {
+          trackIframe.contentWindow.postMessage({keyword}, "*");
+        }, 1000);
+    }
+
+    searchTerm.addEventListener("keypress", e => {
+      if (e.key != "Enter") return;
+      if (searchTerm.value) {
+        document.location.href = "/?keyword="+searchTerm.value; 
+      }
+    });
+
+    
+  </script>
+  </body>
+</html>

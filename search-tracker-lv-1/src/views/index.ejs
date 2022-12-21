@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <h1>Tracking your search</h1>
+    <div class="trackingBoard">
+
+    </div>
+    <button onclick="location.href='/?show=true'">Show</button>
+    <button onclick="clearHistory()">Clear</button>
+  <script>
+    const trackingBoard = document.getElementsByClassName("trackingBoard")[0];
+
+    function clearHistory() {
+      localStorage.setItem("items", "[]");
+      location.reload();
+    }
+
+    window.addEventListener("load", () => {
+      if (!localStorage.getItem("items")) localStorage.setItem("items", "[]");
+
+      const url = new URL(location.href);
+      if (url.searchParams.get("show"))
+        render(JSON.parse(localStorage.getItem("items")));
+    });
+
+    window.addEventListener("message", (e) => {
+      console.log(e.origin);
+      if (e.data) {
+        const items = JSON.parse(localStorage.getItem("items"));
+        console.log(items)
+        items.push(e.data.keyword);
+        localStorage.setItem("items", JSON.stringify(items));
+      }
+    });
+
+    function render(items) {
+      var html;
+
+      html = "<ul><br>";
+      items.map(item => html += `<li>${item}</li>\n`);
+      html += "</ul>";
+      
+      trackingBoard.innerHTML = html;
+    }
+  </script>
+  </body>
+</html>
