@@ -27,48 +27,39 @@ services:
     ports:
       - "3003:3003"
 
-  dom-based-xss-workshop-level-4:
-    container_name: dom-based-xss-workshop-level-4
+  dom-based-xss-workshop-level4:
+    container_name: dom-based-xss-workshop-level4
     build: ./level4
     restart: unless-stopped
     volumes:
       - ./level4/src:/app
     ports:
-      - "3004:3004"
-
-  dom-based-xss-workshop-search-with-track-lv-1:
-    container_name: dom-based-xss-workshop-search-with-track-lv-1
-    build: ./search-with-track-lv-1
-    restart: unless-stopped
-    volumes:
-      - ./search-with-track-lv-1/src:/app
-    ports:
       - "30011:30011"
 
-  dom-based-xss-workshop-search-with-track-lv-2:
-    container_name: dom-based-xss-workshop-search-with-track-lv-2
-    build: ./search-with-track-lv-2
+  dom-based-xss-workshop-level5:
+    container_name: dom-based-xss-workshop-level5
+    build: ./level5
     restart: unless-stopped
     volumes:
-      - ./search-with-track-lv-2/src:/app
+      - ./level5/src:/app
     ports:
       - "30021:30021"
       
-  dom-based-xss-workshop-search-tracker-lv-1:
-    container_name:  search-tracker-lv-1
-    build: ./search-tracker-lv-1
+  dom-based-xss-workshop-search-tracker-lv-4:
+    container_name:  search-tracker-lv-4
+    build: ./search-tracker-lv-4
     restart: unless-stopped
     volumes:
-      - ./search-tracker-lv-1/src:/app
+      - ./search-tracker-lv-4/src:/app
     ports:
       - "30012:30012"
   
-  dom-based-xss-workshop-search-tracker-lv-2:
-    container_name:  search-tracker-lv-2
-    build: ./search-tracker-lv-2
+  dom-based-xss-workshop-search-tracker-lv-5:
+    container_name:  search-tracker-lv-5
+    build: ./search-tracker-lv-5
     restart: unless-stopped
     volumes:
-      - ./search-tracker-lv-2/src:/app
+      - ./search-tracker-lv-5/src:/app
     ports:
       - "30022:30022"
 

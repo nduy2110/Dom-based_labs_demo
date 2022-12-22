@@ -1,1 +1,0 @@
-# DOM Based Level 4 - location.href

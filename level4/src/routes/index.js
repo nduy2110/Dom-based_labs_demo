@@ -7,4 +7,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'CYBERJUTSU TASKLIST', tasks: Database.getData() });
 });
 
+router.get('/search', function(req, res, next) {
+  res.render('index', { title: 'CYBERJUTSU TASKLIST' });
+});
+
 module.exports = router;

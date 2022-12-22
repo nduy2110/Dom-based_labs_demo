@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { Database } = require('../helpers/database.js')
+const { Database } = require("../helpers/database");
 
-router.get('/note', function(req, res, next) {
-    const id = req.query.id
-    const note = Database.findNoteByID(id)
-
-    res.render('../views/viewNote.ejs' ,note,)
+router.get('/search', function(req, res, next) {
+    const results = Database.search(req.query.keyword);
+    if (results.length > 0)
+        res.json({ isEmpty: false, results });
+    else 
+        res.json({ isEmpty: true });
 });
 
 module.exports = router;

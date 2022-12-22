@@ -35,34 +35,6 @@
   cursor: pointer;
   font-size: 20px;
 }
-
-.detailButton {
-    width: auto;
-    height: 30px;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
-    text-align: center;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px 0;
-  }
-
-.historyButtion {
-    width: auto;
-    height: 36px;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
-    text-align: center;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
-
 .hidden {
   display: none;
 }
@@ -101,7 +73,7 @@ body{
 }
 
 .priority.high {
-    background: #f08686;
+    background: #fffdfd;
     margin-bottom: 1px
 }
 
@@ -467,17 +439,4 @@ body{
     .page-todo .timeslot .task span span.remaining {
         font-size: 12px
     }
-}
-
-#history-box {
-    padding: 20px;
-}
-
-#history-box h4 {
-    margin: 0;
-}
-
-.detail-box {
-    max-width: 50%;
-    margin: 0 auto;
 }
